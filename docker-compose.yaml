@@ -1,0 +1,35 @@
+version: '3'
+services:
+  hdfs-master:
+    build: .
+    hostname: hdfs-master
+    environment:
+      - JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto
+      - HADOOP_HOME=/opt/hadoop
+      - SPARK_HOME=/opt/spark
+      - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+      - YARN_CONF_DIR=/opt/hadoop/etc/hadoop
+      - PYTHONPATH=/app/llm-jp-corpus/scripts
+      - WANDB_API_KEY=5c131c024bd4b98bfd2cc8c114c9391d920a9e7a
+      - WANDB_ENTITY=wandb-japan
+      - WANDB_PROJECT=example-for-R
+    volumes:
+      - ./data:/app/data
+      - ./llm-jp-corpus/scripts:/app/llm-jp-corpus/scripts
+      - ./spm.model:/app/spm.model
+      - hadoop_namenode:/opt/hadoop/data/namenode
+      - hadoop_datanode:/opt/hadoop/data/datanode
+    ports:
+      - "9870:9870"  # Hadoop NameNode Web UI
+      - "9000:9000"  # HDFS
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  hadoop_namenode:
+  hadoop_datanode:
