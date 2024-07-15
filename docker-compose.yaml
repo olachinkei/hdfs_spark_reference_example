@@ -10,9 +10,9 @@ services:
       - HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
       - YARN_CONF_DIR=/opt/hadoop/etc/hadoop
       - PYTHONPATH=/app/llm-jp-corpus/scripts
-      - WANDB_API_KEY=5c131c024bd4b98bfd2cc8c114c9391d920a9e7a
-      - WANDB_ENTITY=wandb-japan
-      - WANDB_PROJECT=example-for-R
+      - WANDB_API_KEY=<your api key>
+      - WANDB_ENTITY=<your entity name>
+      - WANDB_PROJECT=<your project name>
     volumes:
       - ./data:/app/data
       - ./llm-jp-corpus/scripts:/app/llm-jp-corpus/scripts
